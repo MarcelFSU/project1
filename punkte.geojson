@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Goethehaus" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.329, 50.979]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Marktplatz" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.327, 50.980]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Park an der Ilm" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.335, 50.975]
+      }
+    }
+  ]
+}
