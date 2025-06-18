@@ -1,17 +1,49 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Weimar Karte</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
   <style>
-    #map { height: 100vh; }
+    #map {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="map.js"></script>
+  <script>
+    // Karte zentrieren auf Weimar mit Zoom 13
+    const map = L.map("map").setView([50.9803, 11.3290], 13);
+
+    // OpenStreetMap als Hintergrundlayer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // Beispielpunkte bei Weimar
+    const punkte = [
+      { coords: [50.979, 11.327], name: "Punkt 1", info: "Info zu Punkt 1" },
+      { coords: [50.982, 11.330], name: "Punkt 2", info: "Info zu Punkt 2" },
+      { coords: [50.981, 11.335], name: "Punkt 3", info: "Info zu Punkt 3" },
+    ];
+
+    // Marker mit Popup hinzufügen
+    punkte.forEach((punkt) => {
+      L.marker(punkt.coords)
+        .addTo(map)
+        .bindPopup(`<b>${punkt.name}</b><br>${punkt.info}`);
+    });
+  </script>
 </body>
 </html>
