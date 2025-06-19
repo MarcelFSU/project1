@@ -1,9 +1,15 @@
 const map = L.map('map').setView([50.980, 11.330], 13);
 
+// Hintergrundkarte
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
+// Layer-Gruppen definieren
+const punktLayer = L.layerGroup();
+const radwegeLayer = L.layerGroup();
+
+// Punkte laden
 fetch('punkte.geojson')
   .then(res => res.json())
   .then(data => {
@@ -12,20 +18,31 @@ fetch('punkte.geojson')
         const name = feature.properties.name || "Ohne Namen";
         layer.bindPopup(`<strong>${name}</strong>`);
       }
-    }).addTo(map);
+    }).addTo(punktLayer);
   });
 
+// Radwege laden
 fetch('weimar_radwege.geojson')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
-    console.log("GeoJSON geladen:", data);
     L.geoJSON(data, {
-      style: { color: 'blue', weight: 4 },
+      style: { color: 'blue', weight: 3 },
       onEachFeature: (feature, layer) => {
         if (feature.properties && feature.properties.name) {
           layer.bindPopup(feature.properties.name);
         }
       }
-    }).addTo(map);
-  })
-  .catch(err => console.error("Fehler beim Laden:", err));
+    }).addTo(radwegeLayer);
+  });
+
+// Beide Layer zur Karte hinzufügen
+punktLayer.addTo(map);
+radwegeLayer.addTo(map);
+
+// Layer-Kontrollmenü hinzufügen
+const overlayMaps = {
+  "Punkte": punktLayer,
+  "Radwege": radwegeLayer
+};
+
+L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
