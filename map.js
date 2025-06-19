@@ -16,19 +16,15 @@ fetch('punkte.geojson')
   });
 
 
-fetch("weimar_radwege.geojson")
-  .then((response) => response.json())
-  .then((data) => {
+fetch('test_weg.geojson')
+  .then(response => response.json())
+  .then(data => {
     L.geoJSON(data, {
-      style: {
-        color: "red",
-        weight: 4,
-      },
-      onEachFeature: function (feature, layer) {
+      style: { color: 'blue', weight: 4 },
+      onEachFeature: (feature, layer) => {
         if (feature.properties && feature.properties.name) {
-          layer.bindPopup("<b>" + feature.properties.name + "</b>");
+          layer.bindPopup(feature.properties.name);
         }
-      },
+      }
     }).addTo(map);
-  })
-  .catch((err) => console.error("GeoJSON-Fehler:", err));
+  });
