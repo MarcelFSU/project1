@@ -21,8 +21,8 @@ fetch("weimar_radwege.geojson")
   .then((data) => {
     L.geoJSON(data, {
       style: {
-        color: "green",
-        weight: 3,
+        color: "red",
+        weight: 4,
       },
       onEachFeature: function (feature, layer) {
         if (feature.properties && feature.properties.name) {
