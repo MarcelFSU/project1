@@ -1,7 +1,7 @@
 const map = L.map('map').setView([50.980, 11.330], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap-Mitwirkende'
+  attribution: '© OpenStreetMap-Mitwirkende, © GDI-Th, dl-de/by-2-0'
 }).addTo(map);
 
 const punktLayer = L.layerGroup().addTo(map);
