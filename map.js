@@ -5,7 +5,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
-// Layergruppen anlegen
+// Layergruppen
 const punkteLayer = L.layerGroup().addTo(map);
 const alltagLayer = L.layerGroup().addTo(map);
 const tourLayer = L.layerGroup().addTo(map);
@@ -22,7 +22,7 @@ fetch('punkte.geojson')
     }).addTo(punkteLayer);
   });
 
-// Radwege gefiltert laden
+// Radwege laden und filtern
 fetch('weimar_radwege.geojson')
   .then(res => res.json())
   .then(data => {
@@ -47,13 +47,8 @@ fetch('weimar_radwege.geojson')
     });
   });
 
-// Checkbox-Elemente selektieren
-const togglePunkte = document.getElementById('togglePunkte');
-const toggleAlltag = document.getElementById('toggleAlltag');
-const toggleTour = document.getElementById('toggleTour');
-
-// Event-Listener für Checkboxen
-togglePunkte.addEventListener('change', e => {
+// Checkbox-Events verbinden
+document.getElementById('togglePunkte').addEventListener('change', function(e) {
   if (e.target.checked) {
     map.addLayer(punkteLayer);
   } else {
@@ -61,7 +56,7 @@ togglePunkte.addEventListener('change', e => {
   }
 });
 
-toggleAlltag.addEventListener('change', e => {
+document.getElementById('toggleAlltag').addEventListener('change', function(e) {
   if (e.target.checked) {
     map.addLayer(alltagLayer);
   } else {
@@ -69,7 +64,7 @@ toggleAlltag.addEventListener('change', e => {
   }
 });
 
-toggleTour.addEventListener('change', e => {
+document.getElementById('toggleTour').addEventListener('change', function(e) {
   if (e.target.checked) {
     map.addLayer(tourLayer);
   } else {
