@@ -5,7 +5,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
-// Layergruppen
+// Layer-Gruppen für unterschiedliche Inhalte
 const punkteLayer = L.layerGroup().addTo(map);
 const alltagLayer = L.layerGroup().addTo(map);
 const tourLayer = L.layerGroup().addTo(map);
@@ -47,27 +47,9 @@ fetch('weimar_radwege.geojson')
     });
   });
 
-// Checkbox-Events verbinden
-document.getElementById('togglePunkte').addEventListener('change', function(e) {
-  if (e.target.checked) {
-    map.addLayer(punkteLayer);
-  } else {
-    map.removeLayer(punkteLayer);
-  }
-});
-
-document.getElementById('toggleAlltag').addEventListener('change', function(e) {
-  if (e.target.checked) {
-    map.addLayer(alltagLayer);
-  } else {
-    map.removeLayer(alltagLayer);
-  }
-});
-
-document.getElementById('toggleTour').addEventListener('change', function(e) {
-  if (e.target.checked) {
-    map.addLayer(tourLayer);
-  } else {
-    map.removeLayer(tourLayer);
-  }
-});
+// Layer Control mit Checkboxen für Ein/Aus
+L.control.layers(null, {
+  "Punkte": punkteLayer,
+  "Radrouten – Alltag": alltagLayer,
+  "Radrouten – Sonstige": tourLayer
+}, { collapsed: false }).addTo(map);
