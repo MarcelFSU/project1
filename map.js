@@ -5,10 +5,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
-// Layer-Gruppen definieren
-const punktLayer = L.layerGroup();
-const radwegeLayer = L.layerGroup();
-
 // Layergruppen
 const punkteLayer = L.layerGroup().addTo(map);
 const alltagLayer = L.layerGroup();
