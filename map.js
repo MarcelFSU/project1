@@ -13,12 +13,25 @@ fetch('punkte.geojson')
   .then(res => res.json())
   .then(data => {
     L.geoJSON(data, {
+      pointToLayer: (feature, latlng) => {
+        return L.circleMarker(latlng, {
+          radius: 6,
+          fillColor: "red",
+          color: "red",
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+        });
+      },
       onEachFeature: (feature, layer) => {
         const name = feature.properties.name || "Ohne Namen";
         layer.bindPopup(`<strong>${name}</strong>`);
       }
     }).addTo(punktLayer);
   });
+
+
+
 
 // Radwege laden und nach Typ sortieren
 fetch('weimar_radwege.geojson')
