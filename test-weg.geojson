@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Beispiel Radweg",
+        "typ_rad": "Hauptweg",
+        "info": "Schöner Radweg in Weimar"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [11.330, 50.980],
+          [11.332, 50.981],
+          [11.334, 50.983],
+          [11.335, 50.985]
+        ]
+      }
+    }
+  ]
+}
