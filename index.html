@@ -4,54 +4,37 @@
   <meta charset="utf-8" />
   <title>Weimar Karte</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet/dist/leaflet.css"
   />
-
   <style>
     #map {
       height: 100vh;
       margin: 0;
       padding: 0;
     }
-    #legend {
-      position: absolute;
-      top: 10px;
-      left: 10px;
+    /* Hier kannst du deine Legenden-Styles hinzufügen */
+    .legend {
       background: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2);
-      font-family: Arial, sans-serif;
+      padding: 6px 8px;
       font-size: 14px;
-      color: #333;
-      z-index: 1000;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 5px;
     }
-    #legend label {
-      cursor: pointer;
-      user-select: none;
-    }
-    #legend input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      vertical-align: middle;
+    .legend span {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
       margin-right: 6px;
-      cursor: pointer;
+      border-radius: 3px;
     }
   </style>
 </head>
 <body>
   <div id="map"></div>
 
-  <div id="legend">
-    <label><input type="checkbox" id="togglePunkte" checked> Punkte</label><br />
-    <label><input type="checkbox" id="toggleAlltag" checked> Radrouten – Alltag</label><br />
-    <label><input type="checkbox" id="toggleTour" checked> Radrouten – Sonstige</label>
-  </div>
-
-  <!-- Leaflet JS muss VOR map.js geladen werden -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="map.js"></s
+  <script src="map.js"></script>
+</body>
+</html>
