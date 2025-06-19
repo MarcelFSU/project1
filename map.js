@@ -23,8 +23,9 @@ fetch('punkte.geojson')
         const name = feature.properties.name || "Ohne Namen";
         layer.bindPopup(`<strong>${name}</strong>`);
       }
-    }).addTo(punktLayer);
+    }).addTo(punkteLayer);
   });
+
 
 // Radwege laden
 // Radwege gefiltert laden
