@@ -15,7 +15,7 @@ fetch('punkte.geojson')
     }).addTo(map);
   });
 
-fetch('test_weg.geojson')
+fetch('weimar_radwege.geojson')
   .then(response => response.json())
   .then(data => {
     console.log("GeoJSON geladen:", data);
