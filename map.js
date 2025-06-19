@@ -1,14 +1,12 @@
 const map = L.map('map').setView([50.980, 11.330], 13);
 
-// Hintergrundkarte
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
-// Layergruppen
-const punkteLayer = L.layerGroup().addTo(map);
-const alltagLayer = L.layerGroup();
-const tourLayer = L.layerGroup();
+const punktLayer = L.layerGroup().addTo(map);
+const alltagLayer = L.layerGroup().addTo(map);
+const tourLayer = L.layerGroup().addTo(map);
 
 // Punkte laden
 fetch('punkte.geojson')
@@ -19,12 +17,10 @@ fetch('punkte.geojson')
         const name = feature.properties.name || "Ohne Namen";
         layer.bindPopup(`<strong>${name}</strong>`);
       }
-    }).addTo(punkteLayer);
+    }).addTo(punktLayer);
   });
 
-
-// Radwege laden
-// Radwege gefiltert laden
+// Radwege laden und nach Typ sortieren
 fetch('weimar_radwege.geojson')
   .then(res => res.json())
   .then(data => {
@@ -47,27 +43,11 @@ fetch('weimar_radwege.geojson')
         route.addTo(tourLayer);
       }
     });
-
-    // Alle Radwege in radwegeLayer hinzufügen (optional)
-    alltagLayer.addTo(radwegeLayer);
-    tourLayer.addTo(radwegeLayer);
   });
 
-// Beide Layer zur Karte hinzufügen
-punktLayer.addTo(map);
-radwegeLayer.addTo(map);
-
-// Layer-Kontrollmenü hinzufügen
-const overlayMaps = {
-  "Punkte": punktLayer,
-  "Radwege": radwegeLayer
-};
-
-L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
-
-// Alternative Layerkontrolle (falls du einzelne Radwege ein/aus schalten willst)
+// Layer-Kontrolle
 L.control.layers(null, {
-  "Punkte": punkteLayer,
+  "Punkte": punktLayer,
   "Radrouten – Alltag": alltagLayer,
   "Radrouten – Sonstige": tourLayer
 }, { collapsed: false }).addTo(map);
