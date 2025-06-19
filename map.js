@@ -5,12 +5,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
-// Layer-Gruppen für unterschiedliche Inhalte
-const punkteLayer = L.layerGroup().addTo(map);
-const alltagLayer = L.layerGroup().addTo(map);
-const tourLayer = L.layerGroup().addTo(map);
+// Layergruppen anlegen
+const punkteLayer = L.layerGroup();
+const alltagLayer = L.layerGroup();
+const tourLayer = L.layerGroup();
 
-// Punkte laden
+// Punkte laden und hinzufügen
 fetch('punkte.geojson')
   .then(res => res.json())
   .then(data => {
@@ -22,7 +22,7 @@ fetch('punkte.geojson')
     }).addTo(punkteLayer);
   });
 
-// Radwege laden und filtern
+// Radwege laden und auf Layer verteilen
 fetch('weimar_radwege.geojson')
   .then(res => res.json())
   .then(data => {
@@ -38,7 +38,6 @@ fetch('weimar_radwege.geojson')
           layer.bindPopup(info);
         }
       });
-
       if (props.RVK === "Alltagstaugliche Radhauptroute") {
         route.addTo(alltagLayer);
       } else {
@@ -47,9 +46,13 @@ fetch('weimar_radwege.geojson')
     });
   });
 
-// Layer Control mit Checkboxen für Ein/Aus
+// Standard Layer Control mit Checkboxen (übersichtliche Legende mit Namen)
 L.control.layers(null, {
   "Punkte": punkteLayer,
   "Radrouten – Alltag": alltagLayer,
   "Radrouten – Sonstige": tourLayer
 }, { collapsed: false }).addTo(map);
+
+// Optional: Füge standardmäßig Layer zur Karte hinzu
+punkteLayer.addTo(map);
+alltagLayer.addTo(map);
