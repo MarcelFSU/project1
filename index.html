@@ -28,20 +28,17 @@
   <!-- Dein JavaScript danach -->
   <script src="map.js"></script>
 
-<div id="legend" style="
-  position: absolute;
-  bottom: 30px;
-  left: 10px;
-  background: white;
-  padding: 10px;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  z-index: 1000;">
-  <h4>Layer-Auswahl</h4>
-  <label><input type="checkbox" id="togglePunkte" checked> Punkte</label><br>
-  <label><input type="checkbox" id="toggleAlltag" checked> Radrouten – Alltag</label><br>
-  <label><input type="checkbox" id="toggleTour" checked> Radrouten – Sonstige</label>
-</div>
+<body>
+  <div id="map"></div>
+
+  <div id="legend">
+    <label><input type="checkbox" id="togglePunkte" checked> Punkte</label><br />
+    <label><input type="checkbox" id="toggleAlltag" checked> Radrouten – Alltag</label><br />
+    <label><input type="checkbox" id="toggleTour" checked> Radrouten – Sonstige</label>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="map.js"></script>
+</body>
 </body>
 </html>
