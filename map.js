@@ -5,9 +5,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
-// Layer-Gruppen definieren
-const punktLayer = L.layerGroup();
-const radwegeLayer = L.layerGroup();
+// Layergruppen
+const punkteLayer = L.layerGroup().addTo(map);
+const alltagLayer = L.layerGroup();
+const tourLayer = L.layerGroup();
 
 // Punkte laden
 fetch('punkte.geojson')
@@ -18,31 +19,37 @@ fetch('punkte.geojson')
         const name = feature.properties.name || "Ohne Namen";
         layer.bindPopup(`<strong>${name}</strong>`);
       }
-    }).addTo(punktLayer);
+    }).addTo(punkteLayer);
   });
 
-// Radwege laden
+// Radwege gefiltert laden
 fetch('weimar_radwege.geojson')
   .then(res => res.json())
   .then(data => {
-    L.geoJSON(data, {
-      style: { color: 'blue', weight: 3 },
-      onEachFeature: (feature, layer) => {
-        if (feature.properties && feature.properties.name) {
-          layer.bindPopup(feature.properties.name);
+    data.features.forEach(feature => {
+      const props = feature.properties;
+      const route = L.geoJSON(feature, {
+        style: {
+          color: props.RVK === "Alltagstaugliche Radhauptroute" ? 'blue' : 'green',
+          weight: 3
+        },
+        onEachFeature: (feature, layer) => {
+          const info = feature.properties.strassenna || 'Unbekannte Straße';
+          layer.bindPopup(info);
         }
+      });
+
+      if (props.RVK === "Alltagstaugliche Radhauptroute") {
+        route.addTo(alltagLayer);
+      } else {
+        route.addTo(tourLayer);
       }
-    }).addTo(radwegeLayer);
+    });
   });
 
-// Beide Layer zur Karte hinzufügen
-punktLayer.addTo(map);
-radwegeLayer.addTo(map);
-
-// Layer-Kontrollmenü hinzufügen
-const overlayMaps = {
-  "Punkte": punktLayer,
-  "Radwege": radwegeLayer
-};
-
-L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+// Layerkontrolle
+L.control.layers(null, {
+  "Punkte": punkteLayer,
+  "Radrouten – Alltag": alltagLayer,
+  "Radrouten – Sonstige": tourLayer
+}, { collapsed: false }).addTo(map);
