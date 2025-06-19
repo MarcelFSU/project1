@@ -1,4 +1,4 @@
-const map = L.map('map').setView([50.980, 11.330], 13); // Zentrum Weimar
+const map = L.map('map').setView([50.980, 11.330], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
@@ -15,10 +15,10 @@ fetch('punkte.geojson')
     }).addTo(map);
   });
 
-
 fetch('test_weg.geojson')
   .then(response => response.json())
   .then(data => {
+    console.log("GeoJSON geladen:", data);
     L.geoJSON(data, {
       style: { color: 'blue', weight: 4 },
       onEachFeature: (feature, layer) => {
@@ -27,4 +27,5 @@ fetch('test_weg.geojson')
         }
       }
     }).addTo(map);
-  });
+  })
+  .catch(err => console.error("Fehler beim Laden:", err));
