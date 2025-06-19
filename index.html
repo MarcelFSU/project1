@@ -45,22 +45,6 @@
     });
   </script>
 
-  <script>
-  fetch('weimar_radwege.geojson')
-    .then(response => response.json())
-    .then(data => {
-      L.geoJSON(data, {
-        style: {
-          color: 'green',   // Linienfarbe
-          weight: 3         // Liniendicke
-        },
-        onEachFeature: function (feature, layer) {
-          if (feature.properties && feature.properties.name) {
-            layer.bindPopup("<b>" + feature.properties.name + "</b>");
-          }
-        }
-      }).addTo(map);
-    });
-  </script>
+<script src="map.js"></script>
 </body>
 </html>
