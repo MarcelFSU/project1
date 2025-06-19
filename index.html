@@ -17,17 +17,32 @@
       margin: 0;
       padding: 0;
     }
+    #legend {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #333;
+      z-index: 1000;
+    }
+    #legend label {
+      cursor: pointer;
+      user-select: none;
+    }
+    #legend input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      margin-right: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
-<body>
-  <div id="map"></div>
-
-  <!-- Leaflet JS muss VOR map.js -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- Dein JavaScript danach -->
-  <script src="map.js"></script>
-
 <body>
   <div id="map"></div>
 
@@ -37,8 +52,6 @@
     <label><input type="checkbox" id="toggleTour" checked> Radrouten – Sonstige</label>
   </div>
 
+  <!-- Leaflet JS muss VOR map.js geladen werden -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="map.js"></script>
-</body>
-</body>
-</html>
+  <script src="map.js"></s
