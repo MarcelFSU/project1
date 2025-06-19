@@ -5,12 +5,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende'
 }).addTo(map);
 
-// Layergruppen anlegen
-const punkteLayer = L.layerGroup();
+// Layer-Gruppen definieren
+const punktLayer = L.layerGroup();
+const radwegeLayer = L.layerGroup();
+
+// Layergruppen
+const punkteLayer = L.layerGroup().addTo(map);
 const alltagLayer = L.layerGroup();
 const tourLayer = L.layerGroup();
 
-// Punkte laden und hinzufügen
+// Punkte laden
 fetch('punkte.geojson')
   .then(res => res.json())
   .then(data => {
@@ -19,10 +23,11 @@ fetch('punkte.geojson')
         const name = feature.properties.name || "Ohne Namen";
         layer.bindPopup(`<strong>${name}</strong>`);
       }
-    }).addTo(punkteLayer);
+    }).addTo(punktLayer);
   });
 
-// Radwege laden und auf Layer verteilen
+// Radwege laden
+// Radwege gefiltert laden
 fetch('weimar_radwege.geojson')
   .then(res => res.json())
   .then(data => {
@@ -38,21 +43,34 @@ fetch('weimar_radwege.geojson')
           layer.bindPopup(info);
         }
       });
+
       if (props.RVK === "Alltagstaugliche Radhauptroute") {
         route.addTo(alltagLayer);
       } else {
         route.addTo(tourLayer);
       }
     });
+
+    // Alle Radwege in radwegeLayer hinzufügen (optional)
+    alltagLayer.addTo(radwegeLayer);
+    tourLayer.addTo(radwegeLayer);
   });
 
-// Standard Layer Control mit Checkboxen (übersichtliche Legende mit Namen)
+// Beide Layer zur Karte hinzufügen
+punktLayer.addTo(map);
+radwegeLayer.addTo(map);
+
+// Layer-Kontrollmenü hinzufügen
+const overlayMaps = {
+  "Punkte": punktLayer,
+  "Radwege": radwegeLayer
+};
+
+L.control.layers(null, overlayMaps, { collapsed: false }).addTo(map);
+
+// Alternative Layerkontrolle (falls du einzelne Radwege ein/aus schalten willst)
 L.control.layers(null, {
   "Punkte": punkteLayer,
   "Radrouten – Alltag": alltagLayer,
   "Radrouten – Sonstige": tourLayer
 }, { collapsed: false }).addTo(map);
-
-// Optional: Füge standardmäßig Layer zur Karte hinzu
-punkteLayer.addTo(map);
-alltagLayer.addTo(map);
