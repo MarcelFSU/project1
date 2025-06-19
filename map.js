@@ -14,3 +14,21 @@ fetch('punkte.geojson')
       }
     }).addTo(map);
   });
+
+
+fetch("weimar_radwege.geojson")
+  .then((response) => response.json())
+  .then((data) => {
+    L.geoJSON(data, {
+      style: {
+        color: "green",
+        weight: 3,
+      },
+      onEachFeature: function (feature, layer) {
+        if (feature.properties && feature.properties.name) {
+          layer.bindPopup("<b>" + feature.properties.name + "</b>");
+        }
+      },
+    }).addTo(map);
+  })
+  .catch((err) => console.error("GeoJSON-Fehler:", err));
