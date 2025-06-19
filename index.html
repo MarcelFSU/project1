@@ -8,12 +8,13 @@
     rel="stylesheet"
     href="https://unpkg.com/leaflet/dist/leaflet.css"
   />
-   <style>
+  <style>
     #map {
       height: 100vh;
       margin: 0;
       padding: 0;
     }
+    /* Optional: manuelle Legende */
     .legend {
       position: absolute;
       top: 10px;
@@ -39,9 +40,11 @@
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="map.js"></script>
+
+  <!-- Optionale manuelle Legende -->
   <div class="legend" id="legend">
-  <div><span style="background: blue"></span> Alltagstaugliche Radrouten</div>
-  <div><span style="background: green"></span> Sonstige Radrouten</div>
-</div>
+    <div><span style="background: blue"></span> Alltagstaugliche Radrouten</div>
+    <div><span style="background: green"></span> Sonstige Radrouten</div>
+  </div>
 </body>
 </html>
