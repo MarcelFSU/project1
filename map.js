@@ -116,4 +116,7 @@ L.control.layers(null, {
   '<span style="background: purple; width: 12px; height: 12px; display: inline-block; margin-right: 6px; border-radius: 50%;"></span>Punkte': punktLayer,
   '<span style="background: orange; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Themenroute': themenLayer,
   '<span style="background: red; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Sonstige Radrouten': tourLayer
-}, { collapsed: false }).addTo(map);
+},{
+  collapsed: false,
+  position: 'bottomright'
+}).addTo(map);
