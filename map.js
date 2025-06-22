@@ -15,49 +15,50 @@ const tourLayer = L.layerGroup().addTo(map);
 fetch('knotenpunkt.geojson')
   .then(res => res.json())
   .then(data => {
-    L.geoJSON(data, {
-      pointToLayer: (feature, latlng) => {
-        const nummer = feature.properties.nummer || "–";
+    const gruppe = L.layerGroup();
 
-        // Kreismarker
-        const circle = L.circleMarker(latlng, {
-          radius: 10,
-          fillColor: "purple",
-          color: "purple",
-          weight: 1,
-          opacity: 1,
-          fillOpacity: 0.8
-        });
+    data.features.forEach(feature => {
+      const coords = feature.geometry.coordinates;
+      const latlng = [coords[1], coords[0]]; // [lat, lon] korrekt
+      const nummer = feature.properties.nummer || feature.properties.num || "–";
 
-        // Textmarker oben drüber (weiß)
-        const label = L.marker(latlng, {
-          icon: L.divIcon({
-            className: 'nummer-icon',
-            html: `<div style="
-              color: white;
-              font-weight: bold;
-              font-size: 12px;
-              line-height: 18px;
-              text-align: center;
-              width: 20px;
-              height: 20px;
-              user-select: none;
-              pointer-events: none;
-            ">${nummer}</div>`,
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
-          }),
-          interactive: false
-        });
+      // Lila Kreis-Marker
+      const circle = L.circleMarker(latlng, {
+        radius: 10,
+        fillColor: "purple",
+        color: "purple",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.9
+      });
 
-        // Gruppe zurückgeben
-        return L.layerGroup([circle, label]);
-      },
-      onEachFeature: (feature, layer) => {
-        const name = feature.properties.name || "Ohne Namen";
-        layer.bindPopup(`<strong>${name}</strong>`);
-      }
-    }).addTo(punktLayer);
+      // Weiße Zahl mittig als DivIcon
+      const numberIcon = L.marker(latlng, {
+        icon: L.divIcon({
+          className: 'nummer-icon',
+          html: `<div style="
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 18px;
+            text-align: center;
+            width: 20px;
+            height: 20px;
+            user-select: none;
+          ">${nummer}</div>`,
+          iconSize: [20, 20],
+          iconAnchor: [10, 10] // zentriert
+        }),
+        interactive: false // verhindert, dass der Text das Popup stört
+      });
+
+      circle.bindPopup(`<strong>${feature.properties.name || "Ohne Namen"}</strong>`);
+
+      gruppe.addLayer(circle);
+      gruppe.addLayer(numberIcon);
+    });
+
+    gruppe.addTo(punktLayer);
   });
 
 
