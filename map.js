@@ -7,9 +7,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap-Mitwirkende, © GDI-Th, dl-de/by-2-0'
 }).addTo(map);
 
-const punktLayer = L.layerGroup().addTo(map);
-const themenLayer = L.layerGroup().addTo(map);
 const tourLayer = L.layerGroup().addTo(map);
+const themenLayer = L.layerGroup().addTo(map);
+const punktLayer = L.layerGroup().addTo(map);
 
 // Punkte laden
 fetch('knotenpunkt.geojson')
