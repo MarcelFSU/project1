@@ -111,6 +111,46 @@ fetch('weimar_radwege.geojson')
     });
   });
 
+
+fetch('verwaltungsgrenze.geojson')
+  .then(res => res.json())
+  .then(data => {
+    data.features.forEach(feature => {
+      // Die Geometrie vom Polygon
+      const geom = feature.geometry;
+
+      if (geom.type === "Polygon") {
+        // Für Polygone: outer ring (erste Linearring)
+        const coords = geom.coordinates[0]; // Array von [lng, lat]
+
+        // Leaflet erwartet [lat, lng], also drehen wir die Koordinaten um
+        const latlngs = coords.map(c => [c[1], c[0]]);
+
+        // Polyline erzeugen (nur der Außenring)
+        L.polyline(latlngs, {
+          color: 'black',
+          weight: 2
+        }).addTo(map);
+
+      } else if (geom.type === "MultiPolygon") {
+        // Falls MultiPolygon, alle Polygonringe abarbeiten
+        geom.coordinates.forEach(polygon => {
+          const coords = polygon[0];
+          const latlngs = coords.map(c => [c[1], c[0]]);
+
+          L.polyline(latlngs, {
+            color: 'black',
+            weight: 2
+          }).addTo(map);
+        });
+      }
+    });
+  });
+
+
+
+
+
 // Layer-Kontrolle
 L.control.layers(null, {
   '<span style="background: purple; width: 12px; height: 12px; display: inline-block; margin-right: 6px; border-radius: 50%;"></span>Knotenpunkte': punktLayer,
