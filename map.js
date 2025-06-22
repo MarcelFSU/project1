@@ -129,7 +129,8 @@ fetch('verwaltungsgrenze.geojson')
         // Polyline erzeugen (nur der Außenring)
         L.polyline(latlngs, {
           color: 'black',
-          weight: 2
+          weight: 2,
+          dashArray: '10, 10'
         }).addTo(map);
 
       } else if (geom.type === "MultiPolygon") {
