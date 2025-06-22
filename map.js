@@ -18,44 +18,66 @@ fetch('knotenpunkt.geojson')
     const gruppe = L.layerGroup();
 
     data.features.forEach(feature => {
-      const coords = feature.geometry.coordinates;
-      const latlng = [coords[1], coords[0]]; // [lat, lon] korrekt
-      const nummer = feature.properties.nummer || feature.properties.num || "–";
+      let coords;
 
-      // Lila Kreis-Marker
-      const circle = L.circleMarker(latlng, {
-        radius: 10,
-        fillColor: "purple",
-        color: "purple",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.9
-      });
+      // Unterstützt Point und MultiPoint
+      if (
+        feature.geometry &&
+        (feature.geometry.type === "Point" || feature.geometry.type === "MultiPoint") &&
+        Array.isArray(feature.geometry.coordinates)
+      ) {
+        if (feature.geometry.type === "Point") {
+          coords = feature.geometry.coordinates;
+        } else if (
+          feature.geometry.type === "MultiPoint" &&
+          feature.geometry.coordinates.length > 0
+        ) {
+          coords = feature.geometry.coordinates[0]; // ersten Punkt verwenden
+        }
 
-      // Weiße Zahl mittig als DivIcon
-      const numberIcon = L.marker(latlng, {
-        icon: L.divIcon({
-          className: 'nummer-icon',
-          html: `<div style="
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-            line-height: 18px;
-            text-align: center;
-            width: 20px;
-            height: 20px;
-            user-select: none;
-          ">${nummer}</div>`,
-          iconSize: [20, 20],
-          iconAnchor: [10, 10] // zentriert
-        }),
-        interactive: false // verhindert, dass der Text das Popup stört
-      });
+        if (coords && coords.length >= 2) {
+          const [lon, lat] = coords;
+          const latlng = [lat, lon];
+          const nummer = feature.properties.nummer || feature.properties.num || "–";
 
-      circle.bindPopup(`<strong>${feature.properties.name || "Ohne Namen"}</strong>`);
+          // CircleMarker
+          const circle = L.circleMarker(latlng, {
+            radius: 10,
+            fillColor: "purple",
+            color: "purple",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.9
+          });
 
-      gruppe.addLayer(circle);
-      gruppe.addLayer(numberIcon);
+          // DivIcon mit Zahl
+          const numberIcon = L.marker(latlng, {
+            icon: L.divIcon({
+              className: 'nummer-icon',
+              html: `<div style="
+                color: white;
+                font-weight: bold;
+                font-size: 12px;
+                line-height: 18px;
+                text-align: center;
+                width: 20px;
+                height: 20px;
+                user-select: none;
+              ">${nummer}</div>`,
+              iconSize: [20, 20],
+              iconAnchor: [10, 10]
+            }),
+            interactive: false
+          });
+
+          circle.bindPopup(`<strong>${feature.properties.name || "Ohne Namen"}</strong>`);
+
+          gruppe.addLayer(circle);
+          gruppe.addLayer(numberIcon);
+        }
+      } else {
+        console.warn("Ungültiges Feature übersprungen:", feature);
+      }
     });
 
     gruppe.addTo(punktLayer);
