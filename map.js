@@ -12,7 +12,7 @@ const alltagLayer = L.layerGroup().addTo(map);
 const tourLayer = L.layerGroup().addTo(map);
 
 // Punkte laden
-fetch('punkte.geojson')
+fetch('knotenpunkt.geojson')
   .then(res => res.json())
   .then(data => {
     L.geoJSON(data, {
