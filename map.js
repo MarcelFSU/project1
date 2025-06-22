@@ -120,3 +120,6 @@ L.control.layers(null, {
   collapsed: false,
   position: 'bottomright'
 }).addTo(map);
+
+
+punktLayer.addTo(map);
