@@ -9,7 +9,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 const tourLayer = L.layerGroup().addTo(map);
 const themenLayer = L.layerGroup().addTo(map);
-const punktLayer = L.layerGroup().addTo(map);
+const punktLayer = L.layerGroup([], { pane: 'markerPane' }).addTo(map);
 
 // Punkte laden
 fetch('knotenpunkt.geojson')
