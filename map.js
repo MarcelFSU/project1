@@ -129,7 +129,7 @@ fetch('verwaltungsgrenze.geojson')
         // Polyline erzeugen (nur der Außenring)
         L.polyline(latlngs, {
           color: 'black',
-          weight: 2,
+          weight: 1,
           dashArray: '10, 10'
         }).addTo(map);
 
@@ -141,7 +141,7 @@ fetch('verwaltungsgrenze.geojson')
 
           L.polyline(latlngs, {
             color: 'black',
-            weight: 2,
+            weight: 1,
             dashArray: '10, 10'
           }).addTo(map);
         });
