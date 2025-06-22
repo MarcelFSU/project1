@@ -19,8 +19,8 @@ fetch('knotenpunkt.geojson')
       pointToLayer: (feature, latlng) => {
         return L.circleMarker(latlng, {
           radius: 6,
-          fillColor: "red",
-          color: "red",
+          fillColor: "purple",
+          color: "purple",
           weight: 1,
           opacity: 1,
           fillOpacity: 0.8
