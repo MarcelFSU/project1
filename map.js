@@ -141,7 +141,8 @@ fetch('verwaltungsgrenze.geojson')
 
           L.polyline(latlngs, {
             color: 'black',
-            weight: 2
+            weight: 2,
+            dashArray: '10, 10'
           }).addTo(map);
         });
       }
