@@ -8,30 +8,62 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const punktLayer = L.layerGroup().addTo(map);
-const alltagLayer = L.layerGroup().addTo(map);
+const themenLayer = L.layerGroup().addTo(map);
 const tourLayer = L.layerGroup().addTo(map);
 
 // Punkte laden
 fetch('knotenpunkt.geojson')
   .then(res => res.json())
   .then(data => {
-    L.geoJSON(data, {
-      pointToLayer: (feature, latlng) => {
-        return L.circleMarker(latlng, {
-          radius: 6,
-          fillColor: "purple",
-          color: "purple",
-          weight: 1,
-          opacity: 1,
-          fillOpacity: 0.8
-        });
-      },
-      onEachFeature: (feature, layer) => {
-        const name = feature.properties.name || "Ohne Namen";
-        layer.bindPopup(`<strong>${name}</strong>`);
-      }
-    }).addTo(punktLayer);
+    const gruppe = L.layerGroup();
+
+    data.features.forEach(feature => {
+      const coords = feature.geometry.coordinates;
+      const latlng = [coords[1], coords[0]];
+      const nummer = feature.properties.nummer || feature.properties.num || "–";
+
+      // CircleMarker mit lila Füllung
+      const circle = L.circleMarker(latlng, {
+        radius: 8,
+        fillColor: "purple",
+        color: "purple",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+      });
+
+      // DivIcon mit weißer Zahl
+      const numberIcon = L.marker(latlng, {
+        icon: L.divIcon({
+          className: 'nummer-icon',
+          html: `<div style="
+            color: white; 
+            font-weight: bold; 
+            font-size: 12px; 
+            line-height: 16px; 
+            text-align: center;
+            width: 16px; 
+            height: 16px;
+            user-select:none;
+            ">
+              ${nummer}
+          </div>`,
+          iconSize: [16, 16],
+          iconAnchor: [8, 8] // Mittelpunkt
+        }),
+        interactive: false // damit Klick auf Kreis klappt, nicht auf Text
+      });
+
+      // Popup an Circle binden
+      circle.bindPopup(`<strong>${feature.properties.name || "Ohne Namen"}</strong>`);
+
+      gruppe.addLayer(circle);
+      gruppe.addLayer(numberIcon);
+    });
+
+    gruppe.addTo(punktLayer);
   });
+
 
 
 
@@ -44,7 +76,7 @@ fetch('weimar_radwege.geojson')
       const props = feature.properties;
       const route = L.geoJSON(feature, {
         style: {
-          color: props.RVK === "Alltagstaugliche Radhauptroute" ? 'blue' : 'green',
+          color: props.netztyp === "Themenroute" ? 'orange' : 'red',
           weight: 3
         },
         onEachFeature: (feature, layer) => {
@@ -53,8 +85,8 @@ fetch('weimar_radwege.geojson')
         }
       });
 
-      if (props.RVK === "Alltagstaugliche Radhauptroute") {
-        route.addTo(alltagLayer);
+      if (props.netztyp === "Themenroute") {
+        route.addTo(themenLayer);
       } else {
         route.addTo(tourLayer);
       }
@@ -64,6 +96,6 @@ fetch('weimar_radwege.geojson')
 // Layer-Kontrolle
 L.control.layers(null, {
   "Punkte": punktLayer,
-  "Radrouten – Alltag": alltagLayer,
+  "Radrouten – Themen": themenLayer,
   "Radrouten – Sonstige": tourLayer
 }, { collapsed: false }).addTo(map);
