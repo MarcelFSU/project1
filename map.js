@@ -43,7 +43,7 @@ fetch('knoten_punkt.geojson')
           // CircleMarker
           const circle = L.circleMarker(latlng, {
             radius: 10,
-            fillColor: "purple",
+            fillColor: "#85378d",
             color: "white",
             weight: 2,
             opacity: 1,
@@ -94,7 +94,7 @@ fetch('netz.geojson')
       const props = feature.properties;
       const route = L.geoJSON(feature, {
         style: {
-          color: props.netztyp === "Themenroute" ? 'orange' : 'red',
+          color: props.netztyp === "Themenroute" ? '#ffe601' : '#efa687',
           weight: 3
         },
         onEachFeature: (feature, layer) => {
@@ -155,9 +155,9 @@ fetch('verwaltungsgrenze.geojson')
 
 // Layer-Kontrolle
 L.control.layers(null, {
-  '<span style="background: purple; width: 12px; height: 12px; display: inline-block; margin-right: 6px; border-radius: 50%;"></span>Knotenpunkte': punktLayer,
-  '<span style="background: orange; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Themenroute': themenLayer,
-  '<span style="background: red; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Sonstige Radroute': tourLayer
+  '<span style="background: #85378d; width: 12px; height: 12px; display: inline-block; margin-right: 6px; border-radius: 50%;"></span>Knotenpunkte': punktLayer,
+  '<span style="background: #ffe601; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Themenroute': themenLayer,
+  '<span style="background: #efa687; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Sonstige Radroute': tourLayer
 },{
   collapsed: false,
   position: 'bottomright'
