@@ -63,7 +63,7 @@ fetch('punkt.geojson')
                 width: 20px;
                 height: 20px;
                 user-select: none;
-              ">${nummer}</div>`,
+              ">${Nummer}</div>`,
               iconSize: [20, 20],
               iconAnchor: [10, 10]
             }),
