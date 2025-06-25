@@ -44,8 +44,8 @@ fetch('knoten_punkt.geojson')
           const circle = L.circleMarker(latlng, {
             radius: 10,
             fillColor: "purple",
-            color: "purple",
-            weight: 1,
+            color: "white",
+            weight: 2,
             opacity: 1,
             fillOpacity: 0.9
           });
