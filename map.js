@@ -12,7 +12,7 @@ const themenLayer = L.layerGroup().addTo(map);
 const punktLayer = L.layerGroup([], { pane: 'markerPane' }).addTo(map);
 
 // Punkte laden
-fetch('knotenpunkte.geojson')
+fetch('punkte.geojson')
   .then(res => res.json())
   .then(data => {
     const gruppe = L.layerGroup();
@@ -87,7 +87,7 @@ fetch('knotenpunkte.geojson')
 
 
 // Radwege laden und nach Typ sortieren
-fetch('weimar_radwege.geojson')
+fetch('netz.geojson')
   .then(res => res.json())
   .then(data => {
     data.features.forEach(feature => {
