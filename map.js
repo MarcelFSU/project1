@@ -70,7 +70,14 @@ fetch('knoten_punkt.geojson')
             interactive: false
           });
 
-          circle.bindPopup(`<strong>${feature.properties.name || "Ohne Namen"}</strong>`);
+          const nummer = feature.properties.nummer ?? feature.properties.Nummer ?? feature.properties.num ?? "–";
+          circle.bindPopup(`<strong>Knotenpunkt ${nummer}</strong><br/>Koordinaten: ${lat.toFixed(5)}, ${lon.toFixed(5)}`);
+    
+
+
+
+});
+
 
           gruppe.addLayer(circle);
           gruppe.addLayer(numberIcon);
