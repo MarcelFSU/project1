@@ -107,7 +107,7 @@ fetch('netz.geojson')
       const innerRoute = L.geoJSON(feature, {
         style: {
           color: props.netztyp === "Themenroute" ? '#85378d' : '#85378d', 
-          weight: 3, // dünner
+          weight: 1, // dünner
           opacity: 1
         },
         onEachFeature: (feature, layer) => {
