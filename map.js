@@ -95,20 +95,20 @@ fetch('netz.geojson')
     data.features.forEach(feature => {
       const props = feature.properties;
 
-      // 1. Breiterer "Rand"
+      // 1. Außen
       const outerRoute = L.geoJSON(feature, {
         style: {
           color: props.netztyp === "Themenroute" ? '#ffe601' : '#efa687', 
-          weight: 7, // breiter
+          weight: 6,
           opacity: 1
         }
       });
 
-      // 2. Dünnerer "Innenstrich"
+      // 2. Innen
       const innerRoute = L.geoJSON(feature, {
         style: {
           color: props.netztyp === "Themenroute" ? '#85378d' : '#85378d', 
-          weight: 3, // dünner
+          weight: 4,
           opacity: 1
         },
         onEachFeature: (feature, layer) => {
