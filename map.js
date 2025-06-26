@@ -165,4 +165,14 @@ L.control.layers(null, {
 }).addTo(map);
 
 
+// Scale Bar
+L.control.scale({
+  position: 'bottomleft',  // Position der Scale (kann auch 'bottomright', 'topleft', 'topright' sein)
+  maxWidth: 200,           // Maximale Breite in Pixel
+  metric: true,            // metrische Einheiten anzeigen (Meter/Kilometer)
+  imperial: false,         // keine imperialen Einheiten (Fuß/Meilen)
+  updateWhenIdle: false    // true = skaliert nur beim Beenden des Zooms, false = dynamisch während Zoomen
+}).addTo(map);
+
+
 punktLayer.addTo(map);
