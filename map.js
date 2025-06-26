@@ -70,8 +70,16 @@ fetch('knoten_punkt.geojson')
             interactive: false
           });
 
-          const nummer = feature.properties.nummer ?? feature.properties.Nummer ?? feature.properties.num ?? "–";
-          circle.bindPopup(`<strong>Knotenpunkt ${nummer}</strong><br/>Koordinaten: ${lat.toFixed(5)}, ${lon.toFixed(5)}`);
+      circle.bindPopup(() => {
+  const nummer = feature.properties.Nummer ?? "unbekannt";
+  const coords = feature.geometry.coordinates;
+  const lon = coords[0].toFixed(5);
+  const lat = coords[1].toFixed(5);
+
+  return `<strong>Knotenpunkt ${nummer}</strong><br/>
+          Koordinaten: ${lat}, ${lon}`;
+});
+
     
 
 
