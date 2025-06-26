@@ -12,7 +12,7 @@ const themenLayer = L.layerGroup().addTo(map);
 const punktLayer = L.layerGroup([], { pane: 'markerPane' }).addTo(map);
 
 // Punkte laden
-fetch('knoten_punkt.geojson')
+fetch('knotenpunkt.geojson')
   .then(res => res.json())
   .then(data => {
     const gruppe = L.layerGroup();
