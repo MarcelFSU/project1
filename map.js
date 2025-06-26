@@ -38,7 +38,7 @@ fetch('knoten_punkt.geojson')
         if (coords && coords.length >= 2) {
           const [lon, lat] = coords;
           const latlng = [lat, lon];
-          const nummer = feature.properties.nummer || feature.properties.num || "–";
+          const nummer = feature.properties.nummer ?? feature.properties.Nummer ?? feature.properties.num ?? "–";
 
           // CircleMarker
           const circle = L.circleMarker(latlng, {
@@ -70,22 +70,9 @@ fetch('knoten_punkt.geojson')
             interactive: false
           });
 
-      circle.bindPopup(() => {
-  const nummer = feature.properties.Nummer ?? "unbekannt";
-  const coords = feature.geometry.coordinates;
-  const lon = coords[0].toFixed(5);
-  const lat = coords[1].toFixed(5);
-
-  return `<strong>Knotenpunkt ${nummer}</strong><br/>
-          Koordinaten: ${lat}, ${lon}`;
-});
-
-    
-
-
-
-});
-
+          // Popup mit Nummer + Koordinaten
+          circle.bindPopup(`<strong>Knotenpunkt ${nummer}</strong><br/>
+            Koordinaten: ${lat.toFixed(5)}, ${lon.toFixed(5)}`);
 
           gruppe.addLayer(circle);
           gruppe.addLayer(numberIcon);
@@ -97,7 +84,6 @@ fetch('knoten_punkt.geojson')
 
     gruppe.addTo(punktLayer);
   });
-
 
 
 
