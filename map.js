@@ -93,10 +93,22 @@ fetch('netz.geojson')
   .then(data => {
     data.features.forEach(feature => {
       const props = feature.properties;
-      const route = L.geoJSON(feature, {
+
+      // 1. Breiterer "Rand"
+      const outerRoute = L.geoJSON(feature, {
         style: {
-          color: props.netztyp === "Themenroute" ? '#ffe601' : '#efa687',
-          weight: 3
+          color: props.netztyp === "Themenroute" ? '#ffe601' : '#efa687', 
+          weight: 7, // breiter
+          opacity: 1
+        }
+      });
+
+      // 2. Dünnerer "Innenstrich"
+      const innerRoute = L.geoJSON(feature, {
+        style: {
+          color: props.netztyp === "Themenroute" ? '#85378d' : '#85378d', 
+          weight: 3, // dünner
+          opacity: 1
         },
         onEachFeature: (feature, layer) => {
           const info = feature.properties.strassenna || 'Unbekannte Straße';
@@ -105,12 +117,15 @@ fetch('netz.geojson')
       });
 
       if (props.netztyp === "Themenroute") {
-        route.addTo(themenLayer);
+        outerRoute.addTo(themenLayer);
+        innerRoute.addTo(themenLayer);
       } else {
-        route.addTo(tourLayer);
+        outerRoute.addTo(tourLayer);
+        innerRoute.addTo(tourLayer);
       }
     });
   });
+
 
 
 fetch('verwaltungsgrenze.geojson')
