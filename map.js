@@ -1,4 +1,5 @@
 const map = L.map('map', {
+  preferCanvas: false,
   minZoom: 10,
   maxZoom: 18
 }).setView([50.980, 11.330], 13);
@@ -107,7 +108,7 @@ fetch('netz.geojson')
       const innerRoute = L.geoJSON(feature, {
         style: {
           color: props.netztyp === "Themenroute" ? '#85378d' : '#85378d', 
-          weight: 1, // dünner
+          weight: 3, // dünner
           opacity: 1
         },
         onEachFeature: (feature, layer) => {
