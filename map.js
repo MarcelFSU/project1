@@ -109,7 +109,6 @@ fetch('netz.geojson')
         style: {
           color: props.netztyp === "Themenroute" ? '#85378d' : '#85378d', 
           weight: 3,
-          dashArray: '10, 5',
           lineJoin: 'round',
           lineCap: 'round',
           opacity: 1
