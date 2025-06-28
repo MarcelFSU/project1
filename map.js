@@ -96,36 +96,26 @@ fetch('netz.geojson')
       const props = feature.properties;
 
       // 1. Außen
-      const outerRoute = L.geoJSON(feature, {
-        style: {
-          color: props.netztyp === "Themenroute" ? '#ffe601' : '#efa687', 
-          weight: 6,
-          opacity: 1
-        }
-      });
+      const route = L.geoJSON(feature, {
+  style: {
+    color: props.netztyp === "Themenroute" ? '#ffe601' : '#85378d',
+    weight: 4, // wähle nach Geschmack, z. B. 4 oder 5
+    lineJoin: 'round',
+    lineCap: 'round',
+    opacity: 1
+  },
+  onEachFeature: (feature, layer) => {
+    const info = feature.properties.strassenna || 'Unbekannte Straße';
+    layer.bindPopup(info);
+  }
+});
 
-      // 2. Innen
-      const innerRoute = L.geoJSON(feature, {
-        style: {
-          color: props.netztyp === "Themenroute" ? '#85378d' : '#85378d', 
-          weight: 3,
-          lineJoin: 'round',
-          lineCap: 'round',
-          opacity: 1
-        },
-        onEachFeature: (feature, layer) => {
-          const info = feature.properties.strassenna || 'Unbekannte Straße';
-          layer.bindPopup(info);
-        }
-      });
+if (props.netztyp === "Themenroute") {
+  route.addTo(themenLayer);
+} else {
+  route.addTo(tourLayer);
+}
 
-      if (props.netztyp === "Themenroute") {
-        outerRoute.addTo(themenLayer);
-        innerRoute.addTo(themenLayer);
-      } else {
-        outerRoute.addTo(tourLayer);
-        innerRoute.addTo(tourLayer);
-      }
     });
   });
 
