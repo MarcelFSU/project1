@@ -98,7 +98,7 @@ fetch('netz.geojson')
       // 1. Außen
       const route = L.geoJSON(feature, {
   style: {
-    color: props.netztyp === "Themenroute" ? '#ffe601' : '#85378d',
+    color: props.netztyp === "Themenroute" ? '#ffa200' : '#85378d',
     weight: 4, // wähle nach Geschmack, z. B. 4 oder 5
     lineJoin: 'round',
     lineCap: 'round',
