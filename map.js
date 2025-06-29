@@ -165,7 +165,8 @@ fetch('verwaltungsgrenze.geojson')
 // Layer-Kontrolle
 L.control.layers(null, {
   // Knotenpunkt mit rundem Marker
-  '<span style="display: inline-block; vertical-align: middle; margin-right: 6px; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #85378d; color: white; font-weight: bold; font-size: 12px; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 0 1px black; margin-top: -3px;">1</span>Knotenpunkt': punktLayer,
+  '<span style="display: inline-block; vertical-align: middle; margin-right: 6px; width: 16px; height: 16px; line-height: 16px; text-align: center; background-color: #85378d; color: white; font-weight: bold; font-size: 10px; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 0 1px black; margin-top: -1px;">1</span>Knotenpunkt': punktLayer,
+
 
   // Themenroute
   '<span style="background: #ffa200; width: 12px; height: 12px; display: inline-block; margin-right: 6px; vertical-align: middle;"></span>Themenroute': themenLayer,
