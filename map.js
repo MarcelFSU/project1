@@ -164,13 +164,31 @@ fetch('verwaltungsgrenze.geojson')
 
 // Layer-Kontrolle
 L.control.layers(null, {
-  '<span style="background: #85378d; width: 12px; height: 12px; display: inline-block; margin-right: 6px; border-radius: 50%;"></span>Knotenpunkt': punktLayer,
+  [`<div style="
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #85378d;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 6px;
+    border: 2px solid white;
+    box-sizing: border-box;
+  ">1</div>Knotenpunkt`]: punktLayer,
+
   '<span style="background: #ffa200; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Themenroute': themenLayer,
+  
   '<span style="background: #85378d; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Sonstige Radroute': tourLayer
-},{
+
+}, {
   collapsed: false,
   position: 'bottomright'
 }).addTo(map);
+
 
 
 // Scale Bar
