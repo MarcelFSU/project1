@@ -178,6 +178,7 @@ L.control.layers(null, {
     margin-right: 6px;
     border: 2px solid white;
     box-sizing: border-box;
+    box-shadow: 0 0 0 1px black;
   ">1</div>Knotenpunkt`]: punktLayer,
 
   '<span style="background: #ffa200; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Themenroute': themenLayer,
