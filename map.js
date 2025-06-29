@@ -164,36 +164,20 @@ fetch('verwaltungsgrenze.geojson')
 
 // Layer-Kontrolle
 L.control.layers(null, {
-  // Knotenpunkt mit Kreis + Zahl
-  [`<span style="display: inline-flex; align-items: center;">
-    <div style="
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: #85378d;
-      color: white;
-      font-weight: bold;
-      font-size: 12px;
-      line-height: 20px;
-      text-align: center;
-      border: 2px solid white;
-      box-sizing: border-box;
-      box-shadow: 0 0 0 1px black;
-      margin-right: 6px;
-    ">1</div>Knotenpunkt</span>`]: punktLayer,
+  // Knotenpunkt mit rundem Marker
+  '<span style="display: inline-block; vertical-align: middle; margin-right: 6px; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #85378d; color: white; font-weight: bold; font-size: 12px; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 0 1px black; margin-top: -3px;">1</span>Knotenpunkt': punktLayer,
 
-  // Themenroute mit kleinem Quadrat
-  [`<span style="display: inline-flex; align-items: center;">
-    <span style="background: #ffa200; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Themenroute</span>`]: themenLayer,
+  // Themenroute
+  '<span style="background: #ffa200; width: 12px; height: 12px; display: inline-block; margin-right: 6px; vertical-align: middle;"></span>Themenroute': themenLayer,
 
-  // Sonstige Radroute mit kleinem Quadrat
-  [`<span style="display: inline-flex; align-items: center;">
-    <span style="background: #85378d; width: 12px; height: 12px; display: inline-block; margin-right: 6px;"></span>Sonstige Radroute</span>`]: tourLayer
+  // Sonstige Radroute
+  '<span style="background: #85378d; width: 12px; height: 12px; display: inline-block; margin-right: 6px; vertical-align: middle;"></span>Sonstige Radroute': tourLayer
 
 }, {
   collapsed: false,
   position: 'bottomright'
 }).addTo(map);
+
 
 
 
